@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-mongoose.connect('mongodb://localhost:27017/hrm', { 
+mongoose.connect('mongodb+srv://adhirasudhir:Sudhir1682@cluster0.jm4la.mongodb.net/?retryWrites=true&w=majority/hrm', { 
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
