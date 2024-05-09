@@ -10,7 +10,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-mongoose.connect('mongodb+srv://adhirasudhir:Sudhir1682@cluster0.jm4la.mongodb.net/?retryWrites=true&w=majority/hrm', { 
+
+// Corrected MongoDB connection string
+const mongoURI = 'mongodb+srv://adhirasudhir:Sudhir123@cluster.ajvmzox.mongodb.net/?retryWrites=true&w=majority&appName=Cluster';
+
+mongoose.connect(mongoURI, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -50,8 +54,6 @@ app.put('/api/contact', async (req, res) => {
   }
 });
 
-
-
 const User = mongoose.model('User', {
   firstname: String,
   lastname: String,
@@ -69,19 +71,21 @@ function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
+// Create
 app.post('/register', async (req, res) => {
   try {
-    const { firstname, lastname, email, password,phonenumber } = req.body;
+    const { email, password } = req.body;
     const passwordHash = hashPassword(password);
-    const user = new User({ firstname, lastname, email, passwordHash,phonenumber });
-    await user.save();
-    const token = generateAccessToken({ firstname, email });
-    res.json({ token });
+    const user = new User({ email, passwordHash });
+    const savedUser = await user.save(); // Save the user and capture the saved user object
+    const token = generateAccessToken({ email });
+    res.json({ token, user: savedUser }); // Send the saved user object along with the token
   } catch (err) {
     console.error(err);
     res.status(500).send('Error registering new user.');
   }
 });
+
 
 
 

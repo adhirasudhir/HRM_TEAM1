@@ -9,7 +9,7 @@ import { Item } from './item'; // Ensure correct import path
 })
 export class DataService {
 
-  apiUrl = 'https://team1-hrem.onrender.com/items'; // Replace with your actual API endpoint
+  apiUrl = 'http://localhost:3000//items'; // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) { }
 
