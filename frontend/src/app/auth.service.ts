@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private loggedIn: boolean = false;
-  private baseURL = 'http://localhost:3000';
+  private baseURL = 'https://hrm-team1.onrender.com';
 
   constructor(private http: HttpClient, private router: Router) {}
 
